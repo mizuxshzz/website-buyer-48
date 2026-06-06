@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -17,15 +16,16 @@ box-sizing:border-box;
 font-family:'Inter',sans-serif;
 }
 
-html{
-scroll-behavior:smooth;
-}
-
 body{
 background:#050816;
 color:#fff;
-overflow-x:hidden;
-min-height:100vh;
+min-height: 100vh;
+width: 100vw;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 40px 20px; /* Jaga jarak aman di atas bawah layar */
+overflow-x: hidden; /* Mencegah geser kanan-kiri */
 }
 
 canvas{
@@ -37,32 +37,19 @@ height:100%;
 z-index:-3;
 }
 
-.bg1{
+.bg1,.bg2{
 position:fixed;
-width:500px;
-height:500px;
+width:450px;
+height:450px;
 border-radius:50%;
-background:#7c3aed;
-filter:blur(120px);
-top:-200px;
-left:-200px;
-opacity:.5;
+filter:blur(130px);
+opacity:.25;
 z-index:-2;
 }
+.bg1{ top:-150px; left:-150px; background:#7c3aed; }
+.bg2{ bottom:-150px; right:-150px; background:#06b6d4; }
 
-.bg2{
-position:fixed;
-width:500px;
-height:500px;
-border-radius:50%;
-background:#06b6d4;
-filter:blur(120px);
-bottom:-200px;
-right:-200px;
-opacity:.5;
-z-index:-2;
-}
-
+/* LOADING INTRO */
 #intro{
 position:fixed;
 inset:0;
@@ -74,301 +61,249 @@ flex-direction:column;
 z-index:9999;
 transition:1s;
 }
-
-#intro.hide{
-opacity:0;
-pointer-events:none;
-}
-
+#intro.hide{ opacity:0; pointer-events:none; }
 .logoIntro{
-font-size:70px;
+font-size:50px;
 font-weight:800;
 letter-spacing:10px;
+background: linear-gradient(135deg, #7c3aed, #06b6d4);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
 }
-
-.subIntro{
-margin-top:10px;
-opacity:.7;
-letter-spacing:3px;
-}
-
 .loader{
-width:280px;
-height:8px;
+width:200px;
+height:6px;
 background:rgba(255,255,255,.1);
 border-radius:999px;
 overflow:hidden;
-margin-top:30px;
+margin-top:20px;
 }
-
 .loader span{
 display:block;
 height:100%;
 width:0;
-background:linear-gradient(
-90deg,
-#7c3aed,
-#06b6d4
-);
-animation:load 3s forwards;
+background:linear-gradient(90deg, #7c3aed, #06b6d4);
+animation:load 2.5s forwards;
+}
+@keyframes load{ to{ width:100%; } }
+
+/* MODERN DASHBOARD CONTAINER (Sangat Responsif) */
+.main-dashboard {
+width: 100%;
+max-width: 1100px;
+display: grid;
+grid-template-columns: 1.2fr 1fr; /* Kiri-Kanan di Desktop */
+gap: 30px;
+z-index: 10;
+align-items: start;
 }
 
-@keyframes load{
-to{
-width:100%;
-}
-}
-
-.container{
-max-width:1200px;
-margin:auto;
-padding:30px;
+/* PANEL KIRI */
+.left-panel {
+display: flex;
+flex-direction: column;
+gap: 30px;
 }
 
-.hero{
-padding-top:140px;
-text-align:center;
+.header-area h1 {
+font-size: 38px;
+font-weight: 800;
+letter-spacing: -1px;
+line-height: 1.2;
+background: linear-gradient(135deg, #fff 60%, rgba(255,255,255,0.6));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+.header-area p {
+font-size: 14px;
+opacity: 0.6;
+margin-top: 8px;
 }
 
-.badge{
-display:inline-flex;
-padding:10px 18px;
-border-radius:999px;
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);
-backdrop-filter:blur(20px);
-margin-bottom:25px;
+.cards-stack {
+display: flex;
+flex-direction: column;
+gap: 16px;
 }
 
-.hero h1{
-font-size:72px;
-font-weight:800;
-line-height:1.1;
-}
-
-.hero p{
-margin-top:20px;
-opacity:.7;
-font-size:18px;
-max-width:700px;
-margin-left:auto;
-margin-right:auto;
-}
-
-.enterBtn{
-margin-top:35px;
-padding:16px 32px;
-border:none;
-border-radius:18px;
-cursor:pointer;
-font-weight:700;
-font-size:16px;
-color:white;
-background:
-linear-gradient(
-135deg,
-#7c3aed,
-#06b6d4
-);
-box-shadow:
-0 0 40px rgba(124,58,237,.4);
-transition:.3s;
-}
-
-.enterBtn:hover{
-transform:translateY(-4px);
-}
-
-.cards{
-margin-top:80px;
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(320px,1fr));
-gap:25px;
-}
-
-.card{
+.card {
 position:relative;
-padding:30px;
-border-radius:30px;
-background:
-rgba(255,255,255,.05);
-border:
-1px solid rgba(255,255,255,.08);
-backdrop-filter:blur(30px);
-overflow:hidden;
-transition:.35s;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 20px;
+border-radius: 20px;
+background: rgba(255,255,255,.03);
+border: 1px solid rgba(255,255,255,.06);
+backdrop-filter:blur(20px);
+transition: all 0.3s ease;
+cursor: pointer;
+}
+.card:hover {
+border-color: rgba(6, 182, 212, 0.4);
+background: rgba(255,255,255,.05);
+transform: translateX(4px);
 }
 
-.card:hover{
-transform:
-translateY(-10px);
-border-color:
-rgba(255,255,255,.2);
+.card-info {
+display: flex;
+align-items: center;
+gap: 16px;
 }
 
-.cardGlow{
-position:absolute;
-width:150px;
-height:150px;
-border-radius:50%;
-background:
-linear-gradient(
-135deg,
-#7c3aed,
-#06b6d4
-);
-filter:blur(80px);
-opacity:.35;
-top:-40px;
-right:-40px;
-}
-
-.logo{
-width:70px;
-height:70px;
-border-radius:22px;
+.logo {
+width:48px;
+height:48px;
+border-radius:12px;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:26px;
-font-weight:700;
-background:
-linear-gradient(
-135deg,
-#7c3aed,
-#06b6d4
-);
-margin-bottom:20px;
-overflow:hidden;
-padding:12px;
+background: #131a2e;
+border: 1px solid rgba(255,255,255,.08);
+padding:10px;
+flex-shrink: 0;
+}
+.logo img { width:100%; height:100%; object-fit:contain; }
+
+.meta h3 { font-size: 16px; font-weight: 700; }
+.meta p { font-size: 12px; opacity: 0.5; margin-top: 2px; }
+
+.action-area { display: flex; align-items: center; gap: 10px; }
+
+.number-display {
+font-size: 14px;
+font-weight: 600;
+background: rgba(255,255,255,0.05);
+padding: 8px 12px;
+border-radius: 10px;
+letter-spacing: 0.5px;
+border: 1px solid rgba(255,255,255,0.03);
 }
 
-.logo img{
-width:100%;
-height:100%;
-object-fit:contain;
+.mini-btn {
+padding: 8px 14px;
+border: none;
+border-radius: 10px;
+font-size: 13px;
+font-weight: 700;
+color: white;
+background: linear-gradient(135deg, #7c3aed, #06b6d4);
+cursor: pointer;
+transition: 0.2s;
+white-space: nowrap;
+}
+.mini-btn:hover { transform: scale(1.03); }
+.mini-btn.copied { background: #10b981 !important; }
+
+/* PANEL KANAN */
+.right-panel {
+background: rgba(255, 255, 255, 0.02);
+border: 1px solid rgba(255, 255, 255, 0.06);
+border-radius: 24px;
+backdrop-filter: blur(30px);
+padding: 25px;
+display: flex;
+flex-direction: column;
+gap: 25px;
 }
 
-.card h2{
-font-size:26px;
-margin-bottom:15px;
+.panel-title {
+font-size: 18px;
+font-weight: 700;
+border-bottom: 1px solid rgba(255,255,255,0.08);
+padding-bottom: 15px;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.panel-title span {
+width: 8px;
+height: 8px;
+background: #06b6d4;
+border-radius: 50%;
+box-shadow: 0 0 10px #06b6d4;
 }
 
-.number{
-padding:15px;
-border-radius:16px;
-background:
-rgba(255,255,255,.05);
-margin-bottom:15px;
-word-break:break-all;
-}
-.btn{
-width:100%;
-padding:15px;
-border:none;
-border-radius:16px;
-cursor:pointer;
-font-weight:700;
-font-size:15px;
-color:white;
-background:
-linear-gradient(
-135deg,
-#7c3aed,
-#06b6d4
-);
-transition:.3s;
+.instruction-box {
+display: flex;
+flex-direction: column;
+gap: 20px;
 }
 
-.btn:hover{
-transform:scale(1.03);
+.step-row {
+display: flex;
+gap: 15px;
+align-items: flex-start;
 }
-
-.paymentSection{
-margin-top:80px;
-padding:35px;
-border-radius:30px;
-background:
-rgba(255,255,255,.05);
-border:
-1px solid rgba(255,255,255,.08);
-backdrop-filter:blur(25px);
-text-align:center;
+.step-badge {
+background: linear-gradient(135deg, #7c3aed, #06b6d4);
+width: 26px;
+height: 26px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 12px;
+font-weight: 800;
+flex-shrink: 0;
 }
+.step-text h4 { font-size: 14px; font-weight:600; margin-bottom: 2px; }
+.step-text p { font-size: 13px; opacity: 0.6; line-height: 1.4; }
 
-.paymentSection h2{
-font-size:32px;
-margin-bottom:10px;
+.action-btn {
+width: 100%;
+padding: 15px;
+border: none;
+border-radius: 14px;
+font-size: 15px;
+font-weight: 700;
+color: white;
+background: linear-gradient(135deg, #7c3aed, #06b6d4, #7c3aed);
+background-size: 200% 200%;
+animation: move-bg 4s ease infinite;
+cursor: pointer;
+transition: 0.3s;
+box-shadow: 0 10px 20px rgba(124,58,237,0.15);
 }
+.action-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(124,58,237,0.3); }
 
-.paymentSection p{
-opacity:.7;
-margin-bottom:25px;
-}
+@keyframes move-bg{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 
+/* BOX MODAL QRIS */
 .modal{
 position:fixed;
 inset:0;
 display:none;
 align-items:center;
 justify-content:center;
-background:rgba(0,0,0,.75);
-backdrop-filter:blur(10px);
+background:rgba(2, 4, 12, 0.9);
+backdrop-filter:blur(15px);
 z-index:999;
+padding: 20px;
 }
-
-.modal.active{
-display:flex;
-}
-
+.modal.active{ display:flex; }
 .modalBox{
-width:90%;
-max-width:400px;
+width:100%;
+max-width:360px;
 padding:25px;
-border-radius:30px;
+border-radius:24px;
 background:#0e1528;
 border:1px solid rgba(255,255,255,.08);
 text-align:center;
-animation:popup .3s ease;
+animation:popup .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-
-@keyframes popup{
-from{
-transform:scale(.8);
-opacity:0;
-}
-to{
-transform:scale(1);
-opacity:1;
-}
-}
-
+@keyframes popup{ from{ transform:scale(.8); opacity:0; } to{ transform:scale(1); opacity:1; } }
 .modalBox img{
 width:100%;
-border-radius:20px;
-margin-top:15px;
-background: #fff;
-padding: 10px;
-}
-
-.toast{
-position:fixed;
-right:30px;
-bottom:30px;
-padding:15px 20px;
+max-width: 280px;
 border-radius:16px;
-background:#10b981;
-font-weight:600;
-transform:translateY(150px);
-transition:.4s;
-z-index:99999;
+margin: 15px auto;
+background: #fff;
+padding: 12px;
+display: block;
 }
 
-.toast.show{
-transform:translateY(0);
-}
-
+/* OUTRO / SUCCESS SCENE */
 #outro{
 position:fixed;
 inset:0;
@@ -380,79 +315,86 @@ background:#050816;
 z-index:10000;
 opacity:0;
 pointer-events:none;
-transition:.8s;
+transition:.6s;
+padding: 20px;
+text-align: center;
 }
-
-#outro.show{
-opacity:1;
-pointer-events:auto;
-}
-
+#outro.show{ opacity:1; pointer-events:auto; }
 #outro h1{
-font-size:60px;
+font-size:40px;
 font-weight:800;
+background: linear-gradient(135deg, #10b981, #06b6d4);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
 }
 
-#outro p{
-margin-top:15px;
-opacity:.7;
+.toast{
+position:fixed;
+right:50%;
+transform: translateX(50%) translateY(150px);
+bottom:30px;
+padding:12px 24px;
+border-radius:12px;
+background:#10b981;
+font-weight:600;
+font-size: 14px;
+white-space: nowrap;
+box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+transition:.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+z-index:99999;
+}
+.toast.show { transform: translateX(50%) translateY(0); }
+
+.dev-footer { font-size: 12px; opacity: 0.3; margin-top: 10px; }
+
+/* ========================================================
+   MEDIA QUERIES (Kunci utama penyesuaian semua ukuran layar)
+   ======================================================== */
+@media(max-width: 850px){
+    body { 
+        align-items: flex-start; /* Mulai pas dari atas layar di HP */
+        padding: 30px 16px; 
+    }
+    .main-dashboard { 
+        grid-template-columns: 1fr; /* Jadi satu baris memanjang ke bawah di HP */
+        gap: 25px; 
+    }
+    .header-area h1 { font-size: 32px; }
 }
 
-.footer{
-text-align:center;
-padding:50px 20px;
-opacity:.5;
+@media(max-width: 480px){
+    /* Optimasi khusus HP layar kecil agar teks nomor HP tidak bertumpukan */
+    .card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .action-area {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .number-display {
+        flex-grow: 1;
+        text-align: center;
+    }
+    .toast {
+        width: 80%;
+        text-align: center;
+    }
 }
-
-@media(max-width:768px){
-
-.hero h1{
-font-size:42px;
-}
-
-.logoIntro{
-font-size:45px;
-}
-
-.cards{
-grid-template-columns:1fr;
-}
-
-.paymentSection h2{
-font-size:25px;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
 <div id="intro">
-
-<div class="logoIntro">
-PAYMENT
-</div>
-
-<div class="subIntro">
-ALDI PAYMENT
-</div>
-
-<div class="loader">
-<span></span>
-</div>
-
+<div class="logoIntro">GABRIEL</div>
+<div class="loader"><span></span></div>
 </div>
 
 <div id="outro">
-
-<h1>success</h1>
-
-<p>
-Pembayaran berhasil diproses
-</p>
-
+<h1>Terima Kasih!</h1>
+<p style="margin-top:10px; opacity:0.7;">Konfirmasi pembayaran Anda berhasil dikirim.</p>
 </div>
 
 <div class="bg1"></div>
@@ -460,363 +402,191 @@ Pembayaran berhasil diproses
 
 <canvas id="particles"></canvas>
 
-<div class="container">
+<!-- APP BOX LAYOUT -->
+<div class="main-dashboard">
+    
+    <!-- SISI 1: DAFTAR METODE PEMBAYARAN -->
+    <div class="left-panel">
+        <div class="header-area">
+            <h1>Digital Payment</h1>
+            <p>pusat pembayaran aman, cepat, dan instan.</p>
+        </div>
 
-<section class="hero">
+        <div class="cards-stack">
+            <!-- DANA -->
+            <div class="card" onclick="highlightCard(this)">
+                <div class="card-info">
+                    <div class="logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA">
+                    </div>
+                    <div class="meta">
+                        <h3>DANA</h3>
+                        <p>a.n. GABRIEL</p>
+                    </div>
+                </div>
+                <div class="action-area">
+                    <div class="number-display" id="dana">XXXXX</div>
+                    <button class="mini-btn" onclick="copyText('dana', event, this)">Salin</button>
+                </div>
+            </div>
 
-<div class="badge">
-Secure Payment Center
-</div>
+            <!-- OVO -->
+            <div class="card" onclick="highlightCard(this)">
+                <div class="card-info">
+                    <div class="logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg" alt="OVO">
+                    </div>
+                    <div class="meta">
+                        <h3>OVO</h3>
+                        <p>a.n. GABRIEL</p>
+                    </div>
+                </div>
+                <div class="action-area">
+                    <div class="number-display" id="ovo">XXXXX</div>
+                    <button class="mini-btn" onclick="copyText('ovo', event, this)">Salin</button>
+                </div>
+            </div>
 
-<h1>
-Premium Digital
-Payment
-</h1>
+            <!-- QRIS -->
+            <div class="card" onclick="openQR()">
+                <div class="card-info">
+                    <div class="logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" alt="QRIS" style="filter: brightness(0) invert(1);">
+                    </div>
+                    <div class="meta">
+                        <h3>QRIS Otomatis</h3>
+                        <p>Mendukung Semua Bank / E-Wallet</p>
+                    </div>
+                </div>
+                <div class="action-area">
+                    <button class="mini-btn">Buka QR</button>
+                </div>
+            </div>
+        </div>
 
-<p>
-Nikmati pengalaman pembayaran
-modern dengan tampilan premium,
-cepat, dan aman.
-</p>
+        <div class="dev-footer">Create by: Gabriel Sagara</div>
+    </div>
 
-<button class="enterBtn">
-Scroll Kebawah
-</button>
+    <!-- SISI 2: ALUR & TOMBOL KONFIRMASI -->
+    <div class="right-panel">
+        <div class="panel-title">
+            <span></span> Alur Penyelesaian
+        </div>
 
-</section>
+        <div class="instruction-box">
+            <div class="step-row">
+                <div class="step-badge">1</div>
+                <div class="step-text">
+                    <h4>Pilih & Salin Akun</h4>
+                    <p>Klik tombol salin nomor pada metode DANA/OVO, atau gunakan pemindai QRIS.</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-badge">2</div>
+                <div class="step-text">
+                    <h4>Kirim Pembayaran</h4>
+                    <p>Buka aplikasi finansialmu, tempel nomor/scan QR, dan bayar sesuai nominal transaksi.</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-badge">3</div>
+                <div class="step-text">
+                    <h4>Validasi Sistem</h4>
+                    <p>Setelah dana terkirim, tekan tombol konfirmasi di bawah untuk memproses pesanan.</p>
+                </div>
+            </div>
+        </div>
 
-<section class="cards">
-
-<div class="card">
-
-<div class="cardGlow"></div>
-
-<div class="logo">
-<img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA">
-</div>
-
-<h2>DANA</h2>
-
-<div class="number" id="dana">
-0895329837092
-</div>
-
-<button
-class="btn"
-onclick="copyText('dana')">
-Salin Nomor
-</button>
-
-</div>
-
-<div class="card">
-
-<div class="cardGlow"></div>
-
-<div class="logo">
-<img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg" alt="OVO">
-</div>
-
-<h2>OVO</h2>
-
-<div class="number" id="ovo">
-0895329837092
-</div>
-
-<button
-class="btn"
-onclick="copyText('ovo')">
-Salin Nomor
-</button>
-
-</div>
-
-<div class="card">
-
-<div class="cardGlow"></div>
-
-<div class="logo">
-<img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" alt="QRIS" style="filter: brightness(0) invert(1);">
-</div>
-
-<h2>QRIS</h2>
-
-<div class="number">
-Scan QRIS
-</div>
-
-<button
-class="btn"
-onclick="openQR()">
-Lihat QRIS
-</button>
-
-</div>
-
-</section>
-
-<section class="paymentSection">
-
-<h2>
-Sudah Membayar?
-</h2>
-
-<p>
-Klik tombol di bawah untuk
-konfirmasi pembayaran.
-</p>
-
-<button
-class="btn"
-onclick="finishPayment()">
-Konfirmasi Pembayaran
-</button>
-
-</section>
-
-<div class="footer">
-Gabriel Sagara
-</div>
+        <button class="action-btn" onclick="finishPayment()">Konfirmasi Pembayaran</button>
+    </div>
 
 </div>
 
-<div
-class="modal"
-id="qrisModal">
-
-<div class="modalBox">
-
-<h2>QRIS Payment</h2>
-
-<img
-src="IMG-20260606-WA0022.jpg"
-alt="QRIS">
-
-<button
-class="btn"
-style="margin-top:15px"
-onclick="closeQR()">
-Tutup
-</button>
-
+<!-- MODAL QRIS -->
+<div class="modal" id="qrisModal">
+    <div class="modalBox">
+        <h2 style="font-size: 18px;">Pindai Kode QRIS</h2>
+        <p style="font-size: 12px; opacity:0.5; margin-top:4px;">Bisa discan pakai merchant e-wallet apa saja</p>
+        
+        <img src="pembayaran-qris.jpg" alt="QRIS">
+        
+        <button class="mini-btn" style="width: 100%; padding: 12px; margin-top: 10px;" onclick="closeQR()">Kembali</button>
+    </div>
 </div>
 
-</div>
-
-<div
-class="toast"
-id="toast">
-Nomor berhasil disalin
-</div>
+<div class="toast" id="toast">Sukses menyalin nomor!</div>
 
 <script>
-
 setTimeout(()=>{
-document
-.getElementById("intro")
-.classList
-.add("hide")
-},3200)
+    document.getElementById("intro").classList.add("hide")
+},2600)
 
-function copyText(id){
+function copyText(id, event, element){
+    event.stopPropagation();
+    const text = document.getElementById(id).innerText
+    navigator.clipboard.writeText(text)
 
-const text =
-document
-.getElementById(id)
-.innerText
+    const orig = element.innerText
+    element.innerText = "Tersalin ✓"
+    element.classList.add("copied")
 
-navigator
-.clipboard
-.writeText(text)
+    const toast = document.getElementById("toast")
+    toast.classList.add("show")
 
-const toast =
-document
-.getElementById("toast")
+    setTimeout(()=>{
+        toast.classList.remove("show")
+        element.innerText = orig
+        element.classList.remove("copied")
+    },2000)
+}
 
-toast
-.classList
-.add("show")
-
-setTimeout(()=>{
-toast
-.classList
-.remove("show")
-},2000)
-
+function highlightCard(cardElement) {
+    document.querySelectorAll('.card').forEach(c => c.style.borderColor = 'rgba(255,255,255,.06)');
+    cardElement.style.borderColor = '#06b6d4';
 }
 
 function openQR(){
-
-document
-.getElementById("qrisModal")
-.classList
-.add("active")
-
+    document.getElementById("qrisModal").classList.add("active")
 }
-
 function closeQR(){
-
-document
-.getElementById("qrisModal")
-.classList
-.remove("active")
-
+    document.getElementById("qrisModal").classList.remove("active")
 }
 
 function finishPayment(){
-
-const outro =
-document
-.getElementById("outro")
-
-outro
-.classList
-.add("show")
-
-setTimeout(()=>{
-outro
-.classList
-.remove("show")
-},3500)
-
+    const outro = document.getElementById("outro")
+    outro.classList.add("show")
+    setTimeout(()=>{ outro.classList.remove("show") },3500)
 }
 
-const canvas =
-document
-.getElementById("particles")
-
-const ctx =
-canvas.getContext("2d")
-
-function resize(){
-
-canvas.width =
-window.innerWidth
-
-canvas.height =
-window.innerHeight
-
-}
-
-resize()
-
-window.addEventListener(
-"resize",
-resize
-)
+// PARTIKEL BACKGROUND
+const canvas = document.getElementById("particles")
+const ctx = canvas.getContext("2d")
+function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resize();
+window.addEventListener("resize", resize)
 
 const particles = []
-
-for(let i=0;i<80;i++){
-
-particles.push({
-
-x:Math.random()*canvas.width,
-
-y:Math.random()*canvas.height,
-
-r:Math.random()*2+1,
-
-v:Math.random()*0.8+0.2
-
-})
-
+for(let i=0;i<40;i++){ // Sedikit dikurangi untuk optimasi performa HP ringan
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*1.5+1,
+        v:Math.random()*0.4+0.1
+    })
 }
-
 function animate(){
-
-ctx.clearRect(
-0,
-0,
-canvas.width,
-canvas.height
-)
-
-ctx.fillStyle =
-"rgba(255,255,255,.6)"
-
-particles.forEach(p=>{
-
-ctx.beginPath()
-
-ctx.arc(
-p.x,
-p.y,
-p.r,
-0,
-Math.PI*2
-)
-
-ctx.fill()
-
-p.y -= p.v
-
-if(p.y < -10){
-
-p.y =
-canvas.height+10
-
-p.x =
-Math.random()*canvas.width
-
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.fillStyle = "rgba(255,255,255,.25)"
+    particles.forEach(p=>{
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2)
+        ctx.fill()
+        p.y -= p.v
+        if(p.y < -10){ p.y = canvas.height+10; p.x = Math.random()*canvas.width; }
+    })
+    requestAnimationFrame(animate)
 }
-
-})
-
-requestAnimationFrame(
-animate
-)
-
-}
-
 animate()
-
-document
-.querySelectorAll(".card")
-.forEach(card=>{
-
-card.addEventListener(
-"mousemove",
-e=>{
-
-const rect =
-card.getBoundingClientRect()
-
-const x =
-e.clientX -
-rect.left
-
-const y =
-e.clientY -
-rect.top
-
-const rotateY =
-(x/rect.width-.5)*15
-
-const rotateX =
-(y/rect.height-.5)*-15
-
-card.style.transform =
-`
-perspective(1000px)
-rotateX(${rotateX}deg)
-rotateY(${rotateY}deg)
-translateY(-8px)
-`
-
-})
-
-card.addEventListener(
-"mouseleave",
-()=>{
-
-card.style.transform =
-"translateY(0)"
-
-})
-
-})
-
 </script>
 
 </body>
